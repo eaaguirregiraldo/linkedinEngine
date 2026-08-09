@@ -1,0 +1,12 @@
+{
+  "candidate": {
+    "angle": "practical-framework",
+    "hook": "Antes de migrar COBOL, inventariá las reglas que nadie documentó",
+    "body": "Mapeá jobs JCL, excepciones operativas y responsables antes de traducir sintaxis. Ese inventario convierte conocimiento tácito en decisiones verificables.",
+    "cta": "¿Qué excepción operativa mapearías primero en tu entorno?",
+    "claims": [{"text": "El inventario incluye jobs JCL", "support": "ev-1"}]
+  },
+  "evidence": [{"id": "ev-1", "text": "El inventario actual incluye jobs JCL y excepciones operativas"}],
+  "ratings": {"hook": 4, "niche_relevance": 5, "specificity_evidence": 4, "clarity": 4, "conversation_potential": 4, "voice_fit": 4},
+  "expectation": {"no_blockers": true, "score_min": 75, "score_max": 95}
+}

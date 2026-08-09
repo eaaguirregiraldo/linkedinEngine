@@ -1,0 +1,16 @@
+{
+  "prompts": {
+    "linkedin-candidate-generator": {
+      "file": "linkedin-candidate-generator@1.0.0.md",
+      "version": "1.0.0",
+      "schema_version": "1.0.0",
+      "sha256": "sha256:94440177047e9ea449204db440a7e5dd017cc447d7866e5db153c3ece067823d"
+    },
+    "editorial-evaluator": {
+      "file": "editorial-evaluator@1.0.0.md",
+      "version": "1.0.0",
+      "schema_version": "1.0.0",
+      "sha256": "sha256:90edc7d3f262ed47e363b7257f96e8e073c0d0db31a615a94eaac4ae55e93202"
+    }
+  }
+}

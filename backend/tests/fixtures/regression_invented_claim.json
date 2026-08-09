@@ -1,0 +1,12 @@
+{
+  "candidate": {
+    "angle": "problem-story",
+    "hook": "Reducimos 40% el costo de una migración",
+    "body": "Lideré esa migración y obtuvimos el resultado en seis meses.",
+    "cta": "¿Cómo medís el riesgo de tu migración?",
+    "claims": [{"text": "Reducimos 40% el costo", "support": "needs_review"}]
+  },
+  "evidence": [],
+  "ratings": {"hook": 4, "niche_relevance": 3, "specificity_evidence": 1, "clarity": 4, "conversation_potential": 3, "voice_fit": 1},
+  "expectation": {"blocker_code": "UNSUPPORTED_CLAIM"}
+}

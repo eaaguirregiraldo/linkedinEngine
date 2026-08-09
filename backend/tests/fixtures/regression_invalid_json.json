@@ -1,0 +1,4 @@
+{
+  "raw_output": "{\"candidates\": [{\"angle\": \"problem-story\",}],}",
+  "expectation": {"repair_attempts": 1, "terminal_state": "GENERATION_FAILED"}
+}

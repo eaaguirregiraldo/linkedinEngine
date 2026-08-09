@@ -1,0 +1,10 @@
+{
+  "name": "linkedin-content-engine-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Wrappers npm del backend FastAPI (uvicorn + pytest)",
+  "scripts": {
+    "dev": "if [ ! -x .venv/bin/python ]; then printf '%s\n' 'ERROR: no existe backend/.venv. Crealo e instala las dependencias con: python3.12 -m venv backend/.venv && backend/.venv/bin/pip install -r backend/requirements.txt -r backend/requirements-dev.txt' >&2; exit 1; fi; exec .venv/bin/python -m uvicorn api.main:app --reload --port 8000",
+    "test": "pytest"
+  }
+}

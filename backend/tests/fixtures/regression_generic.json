@@ -1,0 +1,12 @@
+{
+  "candidate": {
+    "angle": "argued-position",
+    "hook": "El futuro ya llegó",
+    "body": "En un mundo en constante evolución, COBOL está más vivo que nunca.",
+    "cta": "¿Qué opinas?",
+    "claims": []
+  },
+  "evidence": [],
+  "ratings": {"hook": 2, "niche_relevance": 1, "specificity_evidence": 1, "clarity": 3, "conversation_potential": 1, "voice_fit": 1},
+  "expectation": {"genericity_min": 15}
+}

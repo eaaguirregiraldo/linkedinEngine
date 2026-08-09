@@ -1,0 +1,14 @@
+{
+  "raw_idea": "Migrar COBOL no es traducir sintaxis: es recuperar conocimiento operativo.",
+  "title": "Conocimiento operativo antes de migrar",
+  "brief": {
+    "thesis": "Migrar COBOL no es traducir sintaxis: es recuperar conocimiento operativo.",
+    "audience": "Líderes de modernización y equipos que mantienen mainframes críticos",
+    "objective": "Explicar por qué el inventario de reglas de negocio debe preceder a la traducción de código",
+    "evidence": [
+      {"id": "demo-1", "text": "Las reglas de negocio importantes suelen estar repartidas entre programas, JCL y excepciones operativas.", "type": "known_facts"},
+      {"id": "demo-2", "text": "Una migración segura necesita identificar qué decisiones no están documentadas antes de cambiar la plataforma.", "type": "author_opinions"}
+    ],
+    "constraints": ["No inventar experiencia personal", "Evitar clichés de modernización"]
+  }
+}

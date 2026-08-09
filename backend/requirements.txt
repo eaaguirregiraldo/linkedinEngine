@@ -1,0 +1,10 @@
+# Pines exactos (Python 3.12) — proposal: "Pin de versiones exactas en
+# requirements/pyproject al scaffold". sqlmodel cumple el floor >=0.0.22
+# del design §9.1 (ADR-002).
+fastapi==0.115.6
+uvicorn==0.34.0
+sqlmodel==0.0.22
+pydantic==2.9.2
+pydantic-settings==2.6.1
+python-dotenv==1.0.1
+httpx==0.28.1

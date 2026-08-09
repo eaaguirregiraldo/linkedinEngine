@@ -1,0 +1,52 @@
+# DAG state — linkedin-content-engine
+# Modo: hybrid (Engram #875 topic sdd/linkedin-content-engine/state + este archivo)
+# Actualizado: 2026-08-09 (HIGH de arranque corregido y verify repetido; PASS WITH CONDITIONS)
+change: linkedin-content-engine
+phase: verify
+artifact_store: hybrid
+decision:
+  stack: "Vite+React (TS) + FastAPI+Python + SQLite con SQLAlchemy/SQLModel (NO Drizzle)"
+  genai: "DemoProvider determinístico (P0) + adaptador OpenAI opcional (P1, requiere key)"
+  visual: "SVG determinístico + API de imágenes opcional"
+  deploy: "demo 100% local, sin cloud, sin credenciales (RNF-01)"
+artifacts:
+  explore: true
+  init: true
+  proposal: true
+  specs: true
+  design: true
+  tasks: true
+  apply: true
+  verify: true
+  archive: false
+tasks_progress:
+  completed: ["A1.3", "A1.4", "A1.5", "A1.6", "A1.7", "A1.8", "B.1", "B.2", "B.3", "B.4", "B.5", "B.6", "B.7", "C.1", "C.2", "C.3", "D.1", "D.2", "D.3", "D.4", "D.5", "E.1", "E.2", "E.3", "E.4", "E.5", "E.6", "F.1", "F.2", "F.3", "F.4", "F.5", "G.1", "G.2", "G.3", "G.4", "G.5", "G.6", "G.7", "H1.1", "H1.2", "H1.3", "H1.4", "H1.5", "H2.1", "H2.2", "H2.3", "H2.4", "H2.5", "H2.6", "H2.7", "H2.8", "H2.9", "H2.10", "H2.11", "H2.12", "I.1", "I.2", "I.3", "I.4", "J.1", "J.2", "J.3", "J.4", "J.5"]
+  pending: ["A1.1", "A1.2", "J.6", "K.1", "K.2", "K.3", "K.4", "K.5"]
+# Wave 3 (Batch G) COMPLETA: G.1-G.7 [x] en tasks.md; suite backend completa 279 passed
+# (225 Wave 1+2 + 54 api: errors+deps 19, workflow 16, endpoints 10, main 9); ruff limpio;
+# sin build, sin commit. G.6 generó schema.d.ts + openapi.json (schema:check OK); la parte
+# "COMMITEAR" queda pendiente junto con A1.1 (regla no-commit del orquestador).
+# G.5 (main.py) demostró A1.2 con `backend/.venv/bin` en PATH; la corrección HIGH
+# posterior hace reproducible el comando raíz sin activar el venv manualmente.
+# A1.1 (commit inicial) y A1.2 (marcado [x]) siguen pendientes; no se hace commit.
+# Wave 4 H1 COMPLETA: H1.1-H1.5 [x], vitest 24 passed, tsc --noEmit limpio;
+# frontend base listo sin tocar backend ni H2. Schema check no forma parte del criterio H1.
+# Bugfix contractual pre-H2: ErrorDetail.details declara additionalProperties=true de forma
+# explícita; OpenAPI/schema.d.ts regenerados. Tipo TS final: {[key: string]: unknown}.
+# Evidencia: pytest relevante 55 passed, vitest 24 passed, tsc limpio, schema:check OK.
+# No se agregan completed ni se remueven pending: H2/I no fueron demostradas completamente.
+# Wave 4 H2 COMPLETA: wizard 10 pasos real, Vitest 34 passed, tsc limpio,
+# schema:check sin drift, backend 281 passed y smoke Vite index/main HTTP 200.
+# Corrección contractual mínima: aprobación visual con razón y regeneración desde
+# VISUAL_REVISION_REQUIRED; OpenAPI/schema.d.ts regenerados.
+# Wave 5 (Batch I) COMPLETA: I.1-I.4 [x]; drift, round-trip, coverage y CORS verificados.
+# Evidencia: pytest 281 passed, Vitest unit 34 passed, contrato 4 passed, tsc limpio,
+# schema:check OK. El round-trip real terminó en SIMULATED_PUBLISHED con DEMO_PROVIDER.
+# Verify P0 ejecutado con decisión PASS WITH CONDITIONS; ver `verify-report.md`.
+# HIGH corregido: backend/package.json valida backend/.venv/bin/python, ejecuta uvicorn con
+# el intérprete del venv y falla con instrucciones accionables si el venv no existe.
+# Verificación repetida: npm run dev sin activar el venv levantó API :8000 y Vite :5173;
+# GET /api/health respondió HTTP 200. pytest/Vitest/schema/tsc permanecen verdes; sin build,
+# sin commit, sin P1 y sin archive.
+last_updated: "2026-08-09 (HIGH arranque corregido; verify repetido PASS; A1.1/A1.2/J.6/K pending)"
+next_step: archive-after-conditions

@@ -1,0 +1,41 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Tech stack: Frontend React+Vite (TypeScript) / Backend FastAPI+Python / SQLite con
+  SQLAlchemy+SQLModel (NO Drizzle — es TypeScript) / pydantic para contratos GenAI /
+  Vitest (frontend) + pytest (dominio/backend) + tests de contrato FE/BE.
+  Architecture: dos procesos (Vite + FastAPI/uvicorn) coordinados con concurrently;
+  dominio puro con FSM artesanal tipada y fórmula de evaluación sin dependencias;
+  DemoProvider determinístico (fixtures derivados del brief) + adaptador OpenAI
+  opcional (P1, requiere API key); SVG determinístico + API de imágenes opcional;
+  demo 100% local, sin cloud, sin credenciales (RNF-01).
+  Producto: motor editorial para LinkedIn sobre COBOL/mainframes; flujo idea -> brief ->
+  3 candidatos -> evaluación+blockers -> aprobación humana -> visual SVG ->
+  SIMULATED_PUBLISHED -> traza. Fuente de verdad: SOLUTION.md (RF-01..07, RNF-01..05).
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Identify affected modules/packages
+    - Respetar la decisión de stack confirmada (Vite+FastAPI+SQLModel), no reabrir el debate sin nueva información
+  specs:
+    - Use Given/When/Then format for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - Reflejar la FSM honesta de SOLUTION.md (SIMULATED_PUBLISHED nunca es PUBLISHED_REAL)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+    - Dominio puro separado del framework; contratos pydantic compartidos FE/BE
+  tasks:
+    - Group tasks by phase (infrastructure, implementation, testing)
+    - Use hierarchical numbering (1.1, 1.2, etc.)
+    - Keep tasks small enough to complete in one session
+  apply:
+    - Follow existing code patterns and conventions
+    - Load relevant coding skills for the project stack (React/Vite, FastAPI, pytest)
+  verify:
+    - Run tests if test infrastructure exists (pytest + vitest)
+    - Compare implementation against every spec scenario (RF-01..07, RNF-01..05)
+  archive:
+    - Warn before merging destructive deltas (large removals)

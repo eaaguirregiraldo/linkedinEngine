@@ -1,0 +1,46 @@
+/**
+ * tokens.css — primitivas visuales del FE (H1.4).
+ *
+ * Colores SEMÁNTICOS de estado (RNF-02): la UI distingue a simple vista
+ * simulado / demo / error / éxito. Espaciado, radios y tipografía centralizados
+ * para que H2 (wizard) consuma tokens, no valores sueltos.
+ */
+:root {
+  /* estados de ejecución (RNF-02) */
+  --color-simulation: #b45309;
+  --color-demo: #1d4ed8;
+  --color-error: #b91c1c;
+  --color-success: #15803d;
+
+  /* neutros */
+  --color-bg: #ffffff;
+  --color-surface: #f8fafc;
+  --color-text: #0f172a;
+  --color-text-muted: #475569;
+  --color-border: #cbd5e1;
+  --color-ink: #101820;
+  --color-accent: #d7ff3f;
+  --color-accent-dark: #202b00;
+
+  /* escala de espaciado */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  /* radios */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* tipografía */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* sombras */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 24px 70px rgba(15, 23, 42, 0.12);
+}

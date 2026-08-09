@@ -1,0 +1,22 @@
+{
+  "name": "linkedin-content-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Motor editorial asistido por GenAI para LinkedIn (MVP local) — script root de dos procesos (FastAPI + Vite)",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "npm --prefix backend run dev",
+    "dev:web": "npm --prefix frontend run dev",
+    "schema:generate": "npm --prefix frontend exec -- openapi-typescript http://localhost:8000/openapi.json -o frontend/src/api/schema.d.ts",
+    "schema:check": "npm --prefix frontend exec -- openapi-typescript http://localhost:8000/openapi.json -o /tmp/schema.d.ts && diff /tmp/schema.d.ts frontend/src/api/schema.d.ts",
+    "test": "npm --prefix backend run test && npm --prefix frontend run test",
+    "test:contract": "npm --prefix frontend run test:contract",
+    "demo": "npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
