@@ -2,6 +2,10 @@
 
 Este documento resume las decisiones de `openspec/.../design.md`. No agrega alcance.
 
+## Método de trabajo
+
+El proyecto se trabajó con el ecosistema **Gentle AI** y **Engram SDD**. Engram se usó como memoria persistente del proyecto y SDD como proceso para separar exploración, propuesta, especificación, diseño, tareas, implementación y verificación. La ventaja material para este MVP fue mantener trazabilidad entre requisitos y código, dividir el trabajo en incrementos verificables y dejar decisiones y supuestos recuperables entre sesiones. No reemplaza las pruebas ni la revisión humana: reduce ambigüedad y deriva de alcance, pero la evidencia sigue siendo la fuente de verdad.
+
 ## ADRs
 
 1. **ADR-001, dos procesos:** React/Vite y FastAPI/uvicorn coordinados por `concurrently`; preserva el stack acordado y permite un dominio Python fuerte.
@@ -38,4 +42,4 @@ El score pondera hook, nicho, evidencia, claridad, conversación y voz, y descue
 
 ## Semana adicional
 
-El siguiente incremento puede sumar OAuth/publicación real, Alembic, corpus de voz, adaptadores OpenAI e imagen, historial y E2E. Ninguno debe cambiar el contrato honesto de simulación ni habilitar autoaprobación.
+Con una semana adicional priorizaría E2E del happy path y del fallo controlado, calibración de voz y rúbrica con 10-20 publicaciones aprobadas, historial con Alembic cuando exista persistencia que preservar y el diseño de OAuth/publicación real como una integración aislada. Ninguno debe cambiar el contrato honesto de simulación ni habilitar autoaprobación. La publicación real requiere además una aplicación de LinkedIn aprobada, permisos, pruebas de respuesta remota y trazas sin tokens.

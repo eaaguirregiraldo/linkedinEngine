@@ -2,6 +2,16 @@
 
 MVP local para transformar una idea sobre COBOL/mainframes en un brief, tres candidatos, una evaluación trazable, un visual SVG y una publicación simulada honesta.
 
+## Entregable y estructura
+
+- `frontend/`: SPA React + Vite con el wizard de 10 pasos.
+- `backend/`: API FastAPI, dominio, persistencia SQLite y seed de demo.
+- `docs/demo/`: guion reproducible y fixture del brief de mainframe.
+- `docs/decisions.md`: decisiones, supuestos materiales y plan de una semana adicional.
+- `SOLUTION.md`: especificación funcional completa y criterios de aceptación.
+
+El trabajo se organizó con el ecosistema **Gentle AI**, usando **Engram SDD** para persistir contexto y artefactos de exploración, propuesta, especificación, diseño, tareas y verificación. En este proyecto SDD aportó trazabilidad entre requisitos y entregables, implementación incremental por lotes y un registro explícito de decisiones y riesgos; también permitió recuperar el contexto entre sesiones sin convertir la documentación en una suposición implícita.
+
 ## Requisitos e instalación
 
 - Node.js `24.14.0` (o compatible con `>=24`)
@@ -39,6 +49,17 @@ También podés verificar el flujo HTTP contra un backend ya levantado:
 ```bash
 python scripts/demo_smoke.py
 ```
+
+El smoke usa `http://localhost:8000` por defecto. Para otra URL, definí `DEMO_BASE_URL`; por ejemplo, `DEMO_BASE_URL=http://localhost:8000 python scripts/demo_smoke.py`. El caso de fallo controlado se ejecuta con `--failure` mientras el backend corre con `DEMO_FORCE_INVALID=1`.
+
+Para correr las verificaciones automatizadas disponibles, sin modificar el flujo de demo:
+
+```bash
+npm test
+npm run test:contract
+```
+
+`schema:generate` y `schema:check` requieren que la API ya esté levantada porque leen `http://localhost:8000/openapi.json`.
 
 ## Qué demuestra el MVP
 
@@ -81,7 +102,7 @@ La publicación es exclusivamente simulada: no hay OAuth, permisos ni envío a L
 
 ## Semana adicional
 
-Fuera de P0 quedan la publicación real vía OAuth y una app de LinkedIn aprobada, migraciones Alembic cuando haya datos que preservar, validación de voz contra 10-20 publicaciones aprobadas, proveedor de imágenes, historial navegable y E2E. OpenAI-compatible está disponible como enhancement opcional y requiere configuración del usuario. También hace falta calibrar la rúbrica con datos reales antes de atribuir cualquier señal a rendimiento.
+Con una semana adicional priorizaría, en este orden: (1) instrumentar pruebas E2E del happy path y del fallo no destructivo; (2) validar la voz y calibrar la rúbrica con 10-20 publicaciones aprobadas y revisión humana; (3) agregar historial navegable y migraciones Alembic si empiezan a preservarse datos; y (4) dejar diseñada, pero separada del camino demo, una integración de publicación real con OAuth, permisos y respuesta remota verificable. No habilitaría publicación real ni afirmaría mejoras de rendimiento sin esa evidencia.
 
 ## Definición de terminado P0
 
