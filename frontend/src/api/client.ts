@@ -31,6 +31,7 @@ export type ReceiptOut = components['schemas']['ReceiptOut']
 export type RunDetailOut = components['schemas']['RunDetailOut']
 export type RunOut = components['schemas']['RunOut']
 export type VisualOut = components['schemas']['VisualOut']
+export type ProviderChoice = 'demo' | 'openai'
 
 // --- Error tipado -----------------------------------------------------------
 
@@ -122,14 +123,14 @@ export const api = {
 
   // runs
   getRun: (runId: number) => request<RunDetailOut>(`/api/runs/${runId}`),
-  evaluateRun: (runId: number) =>
-    request<EvaluationOut>(`/api/runs/${runId}/evaluate`, jsonInit('POST')),
+  evaluateRun: (runId: number, provider: ProviderChoice = 'demo') =>
+    request<EvaluationOut>(`/api/runs/${runId}/evaluate${provider === 'openai' ? '?provider=openai' : ''}`, jsonInit('POST')),
 
   // candidates
-  generate: (projectId: number) =>
-    request<RunOut>(`/api/projects/${projectId}/generate`, jsonInit('POST')),
-  retryGenerate: (projectId: number) =>
-    request<RunOut>(`/api/projects/${projectId}/retry-generate`, jsonInit('POST')),
+  generate: (projectId: number, provider: ProviderChoice = 'demo') =>
+    request<RunOut>(`/api/projects/${projectId}/generate${provider === 'openai' ? '?provider=openai' : ''}`, jsonInit('POST')),
+  retryGenerate: (projectId: number, provider: ProviderChoice = 'demo') =>
+    request<RunOut>(`/api/projects/${projectId}/retry-generate${provider === 'openai' ? '?provider=openai' : ''}`, jsonInit('POST')),
   editCandidate: (candidateId: number, content: CandidateContent) =>
     request<CandidateOut>(`/api/candidates/${candidateId}/edit`, jsonInit('POST', { content })),
   requestRevision: (candidateId: number, reason: string) =>

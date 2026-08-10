@@ -185,6 +185,12 @@ Dependencias de lote: `B` y `C` y `D` dependen solo de `A1` (config/conftest). `
 
 ### Batch K — Adaptador OpenAI-compatible, historial UI, E2E, ImageProvider, Alembic `[P1]`
 
+### Enhancement — Selección explícita DemoProvider/OpenAI `[P1]`
+
+- [x] **ENH.1** Implementar provider OpenAI-compatible con `httpx`, selección por request, key solo backend/env, respuesta cruda al harness y errores normalizados.
+- [x] **ENH.2** Exponer selector UX antes de generar, etiquetas honestas `DEMO_PROVIDER`/`OPENAI_PROVIDER`, retry y retorno explícito a DemoProvider.
+- [x] **ENH.3** Agregar tests mockados de transporte, key ausente, contrato común y documentación de configuración.
+
 - [ ] **K.1** `backend/ai/openai_compat.py` — httpx POST `${OPENAI_BASE_URL}/chat/completions` con `OPENAI_API_KEY`/`OPENAI_MODEL`, `temperature=0.4`, `timeout=60s`, `response_format={"type":"json_object"}` cuando lo soporte; activo SOLO si `GENAI_PROVIDER=openai` + key; sin key/red → `ProviderError(UNAVAILABLE)` → UI sugiere `DemoProvider` (NUNCA conmutación automática); proveedor/modelo en traza, NUNCA la key. **Criterio:** test con `httpx.MockTransport`: 200 → salida validada por el MISMO contrato; 401/network → `UNAVAILABLE`; traza sin key (GEN-05, TRC-02). **Ref:** P1-01, design §6.4, `genai-harness` HARN-02/09.
 - [ ] **K.2** Historial navegable: vista de proyectos (`GET /api/projects`, ya soportado) + reapertura de proyecto/run/traza desde la UI. **Criterio:** P1-02 — navegar entre ejecuciones persiste tras reinicio (SQLite fichero). **Ref:** P1-02, `api` API-06.
 - [ ] **K.3** Prueba E2E (Playwright) del happy path completo. **Criterio:** P1-03 — `npx playwright test` verde sobre la app corriendo. **Ref:** P1-03.

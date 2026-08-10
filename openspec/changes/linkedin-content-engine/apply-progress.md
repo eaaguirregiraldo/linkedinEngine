@@ -199,3 +199,9 @@ Batch I queda **COMPLETO / GREEN**. No se detectaron defectos en las fuentes can
 - **J.6:** permanece `[ ]`: el criterio exige commit inicial, slices y working tree limpio; la instrucción del usuario prohíbe commit.
 
 **Resultado P0:** `65/68` tareas marcadas, **95.6%**. A1.1/A1.2 siguen pendientes en `tasks.md` por estado heredado; J.6 queda pendiente explícitamente. No se implementó P1/K, no hubo build ni commit, y no se modificaron documentos de evidencia ya cumplidos.
+# Enhancement: provider explícito DemoProvider/OpenAI
+
+- Implementado `backend/ai/openai_compat.py` con HTTP Chat Completions mediante `httpx`; no usa SDK ni expone credenciales.
+- `get_provider` acepta solo la selección `demo|openai` y conserva el fallback explícito, nunca automático.
+- La UI ofrece el selector antes de generar y etiqueta cada salida con el provider real; errores de key/proveedor incluyen acción sobre `.env`.
+- Tests mockados cubren respuestas HTTP, errores normalizados y selección DemoProvider sin key.

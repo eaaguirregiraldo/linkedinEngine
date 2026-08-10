@@ -78,16 +78,16 @@ def test_openai_flag_without_key_raises_never_demo() -> None:
     assert excinfo.value.code == "UNAVAILABLE"
 
 
-def test_openai_flag_with_key_but_adapter_missing_raises(monkeypatch) -> None:
-    """Flag + key pero adaptador P1 ausente → error tipado, sin degradación
-    silenciosa a demo (el adaptador no existe hasta K.1)."""
-    from ai.providers import ProviderError
-
-    monkeypatch.delitem(sys.modules, "ai.openai_compat", raising=False)
+def test_openai_flag_with_key_uses_real_adapter() -> None:
+    """Flag + key selecciona el adaptador HTTP sin degradar a demo."""
     settings = Settings(genai_provider="openai", openai_api_key="sk-test")
-    with pytest.raises(ProviderError) as excinfo:
-        dependencies.get_provider(settings)
-    assert excinfo.value.code == "UNAVAILABLE"
+    provider = dependencies.get_provider(settings)
+    assert provider.name == "OPENAI_PROVIDER"
+
+
+def test_requested_demo_explicitly_overrides_openai_default_without_key() -> None:
+    provider = dependencies.provider_for(Settings(genai_provider="openai"), "demo")
+    assert isinstance(provider, DemoProvider)
 
 
 # ── get_session ──────────────────────────────────────────────────────────────

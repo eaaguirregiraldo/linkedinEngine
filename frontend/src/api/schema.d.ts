@@ -626,6 +626,17 @@ export interface components {
             status: "ok";
             /** Provider */
             provider?: string | null;
+            /**
+             * Configured Provider
+             * @default demo
+             * @enum {string}
+             */
+            configured_provider: "demo" | "openai";
+            /**
+             * Openai Configured
+             * @default false
+             */
+            openai_configured: boolean;
         };
         /**
          * Penalties
@@ -1287,7 +1298,9 @@ export interface operations {
     };
     evaluate_run_api_runs__run_id__evaluate_post: {
         parameters: {
-            query?: never;
+            query?: {
+                provider?: string | null;
+            };
             header?: never;
             path: {
                 run_id: number;
@@ -1345,7 +1358,9 @@ export interface operations {
     };
     generate_api_projects__project_id__generate_post: {
         parameters: {
-            query?: never;
+            query?: {
+                provider?: string | null;
+            };
             header?: never;
             path: {
                 project_id: number;
@@ -1403,7 +1418,9 @@ export interface operations {
     };
     retry_generate_api_projects__project_id__retry_generate_post: {
         parameters: {
-            query?: never;
+            query?: {
+                provider?: string | null;
+            };
             header?: never;
             path: {
                 project_id: number;

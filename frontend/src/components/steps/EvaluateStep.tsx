@@ -1,4 +1,4 @@
-import type { CandidateOut, ErrorBody, EvaluationOut } from '../../api/client'
+import type { CandidateOut, ErrorBody, EvaluationOut, ProviderChoice } from '../../api/client'
 import { Banner } from '../ui/Banner'
 import { ErrorBanner } from '../ui/ErrorBanner'
 import { ScoreBreakdown } from '../ui/ScoreBreakdown'
@@ -11,15 +11,16 @@ interface EvaluateStepProps {
   stale: boolean
   onEvaluate: () => void
   onContinue: () => void
+  provider?: ProviderChoice
 }
 
-export function EvaluateStep({ candidates, evaluation, busy, error, stale, onEvaluate, onContinue }: EvaluateStepProps) {
+export function EvaluateStep({ candidates, evaluation, busy, error, stale, onEvaluate, onContinue, provider = 'demo' }: EvaluateStepProps) {
   const partial = evaluation !== null && evaluation.candidate_scores.length === 0
   return (
     <section className="step" aria-labelledby="evaluate-title" aria-busy={busy}>
       <p className="step__eyebrow">Paso 5 de 10</p>
       <h2 id="evaluate-title">Evaluación explicable, no predicción de viralidad</h2>
-      <Banner variant="demo" />
+      <Banner variant={provider === 'openai' ? 'openai' : 'demo'} />
       {stale ? <p className="notice" role="status">La edición invalidó la evaluación anterior. Reevaluá antes de aprobar.</p> : null}
       {error ? <ErrorBanner error={error} /> : null}
       {partial ? <div className="partial-state" role="alert"><strong>EVALUATION_PARTIAL</strong><p>Evaluación semántica no disponible. No se fabricó un score completo.</p></div> : null}

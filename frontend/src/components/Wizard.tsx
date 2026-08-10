@@ -11,6 +11,7 @@ import {
   type PublicationOut,
   type RunDetailOut,
   type RunOut,
+  type ProviderChoice,
   type VisualOut,
 } from '../api/client'
 import { useAsync } from '../hooks/useAsync'
@@ -40,6 +41,7 @@ export function Wizard() {
   const [visual, setVisual] = useState<VisualOut | null>(null)
   const [publication, setPublication] = useState<PublicationOut | null>(null)
   const [trace, setTrace] = useState<RunDetailOut | null>(null)
+  const [provider, setProvider] = useState<ProviderChoice>('demo')
 
   const ideasRequest = useAsync<DemoIdeaOut[]>()
   const projectRequest = useAsync<ProjectOut>()
@@ -74,7 +76,7 @@ export function Wizard() {
 
   const generate = async (retry: boolean) => {
     if (!project) return
-    const result = await generationRequest.run(() => retry ? api.retryGenerate(project.id) : api.generate(project.id))
+    const result = await generationRequest.run(() => retry ? api.retryGenerate(project.id, provider) : api.generate(project.id, provider))
     if (!result) return
     setRun(result)
     if (result.status === 'GENERATION_FAILED') return
@@ -85,7 +87,7 @@ export function Wizard() {
 
   const evaluate = async () => {
     if (!run) return
-    const result = await evaluationRequest.run(() => api.evaluateRun(run.id))
+    const result = await evaluationRequest.run(() => api.evaluateRun(run.id, provider))
     if (!result) return
     setEvaluation(result)
     setEvaluationStale(false)
@@ -169,9 +171,9 @@ export function Wizard() {
       </nav>
       {step === 0 ? <IdeaStep ideas={ideasRequest.data ?? []} busy={ideasRequest.busy || projectRequest.busy} error={ideasRequest.error ? toErrorBody(ideasRequest.error) : projectRequest.error ? toErrorBody(projectRequest.error) : null} onRetry={loadIdeas} onSubmit={(idea, selectedDemo) => { void createProject(idea, selectedDemo) }} /> : null}
       {step === 1 && project ? <BriefStep idea={project.raw_idea} demo={demo} busy={briefRequest.busy} onSubmit={(brief) => { void submitBrief(brief) }} /> : null}
-      {step === 2 ? <GeneratingStep busy={generationRequest.busy} run={run} error={generationRequest.error ? toErrorBody(generationRequest.error) : null} onGenerate={(retry) => { void generate(retry) }} /> : null}
-      {step === 3 ? <CandidatesStep candidates={candidates} onContinue={() => setStep(4)} /> : null}
-      {step === 4 ? <EvaluateStep candidates={candidates} evaluation={evaluation} busy={evaluationRequest.busy} error={evaluationRequest.error ? toErrorBody(evaluationRequest.error) : null} stale={evaluationStale} onEvaluate={() => { void evaluate() }} onContinue={() => setStep(5)} /> : null}
+      {step === 2 ? <GeneratingStep busy={generationRequest.busy} run={run} provider={provider} onProviderChange={setProvider} error={generationRequest.error ? toErrorBody(generationRequest.error) : null} onGenerate={(retry) => { void generate(retry) }} /> : null}
+      {step === 3 ? <CandidatesStep candidates={candidates} provider={provider} onContinue={() => setStep(4)} /> : null}
+      {step === 4 ? <EvaluateStep candidates={candidates} provider={provider} evaluation={evaluation} busy={evaluationRequest.busy} error={evaluationRequest.error ? toErrorBody(evaluationRequest.error) : null} stale={evaluationStale} onEvaluate={() => { void evaluate() }} onContinue={() => setStep(5)} /> : null}
       {step === 5 && evaluation ? <ReviewStep candidates={candidates} evaluation={evaluation} busy={editRequest.busy || revisionRequest.busy} error={editRequest.error ? toErrorBody(editRequest.error) : revisionRequest.error ? toErrorBody(revisionRequest.error) : null} onEdit={(id, content) => { void editCandidate(id, content) }} onRevision={(id, reason) => { void requestRevision(id, reason) }} onContinue={selectCandidate} /> : null}
       {step === 6 && selected ? <ApproveStep candidate={selected} score={selectedScore} selectionReason={selectionReason} busy={approvalRequest.busy} error={approvalRequest.error ? toErrorBody(approvalRequest.error) : null} onApprove={(reason) => { void approve(reason) }} /> : null}
       {step === 7 ? <VisualStep visual={visual} busy={visualRequest.busy} error={visualRequest.error ? toErrorBody(visualRequest.error) : null} onGenerate={() => { void generateVisual() }} onApprove={(reason) => { void approveVisual(reason) }} onReject={(reason) => { void rejectVisual(reason) }} onRegenerate={() => { void regenerateVisual() }} onContinue={() => setStep(8)} /> : null}

@@ -166,11 +166,12 @@ async def _provider_error_handler(
     body = ErrorBody(
         error=ErrorDetail(
             code=PROVIDER_UNAVAILABLE,
-            message=(
-                "el proveedor de IA no está disponible: reintentá más tarde "
-                "o activá el proveedor demo"
-            ),
-            details={"code": exc.code},
+            message=exc.message or "el proveedor de IA no está disponible",
+            details={
+                "code": exc.code,
+                "action": "revisá .env (GENAI_PROVIDER y OPENAI_API_KEY), reiniciá el backend "
+                "o elegí DemoProvider explícitamente",
+            },
         )
     )
     return JSONResponse(status_code=502, content=body.model_dump())

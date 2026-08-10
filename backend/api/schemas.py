@@ -386,6 +386,14 @@ class HealthOut(BaseModel):
 
     status: Literal["ok"] = "ok"
     provider: str | None = None
+    configured_provider: Literal["demo", "openai"] = "demo"
+    openai_configured: bool = False
+
+
+class GenerateIn(BaseModel):
+    """Provider elegido por el usuario; nunca contiene una API key."""
+
+    provider: Literal["demo", "openai"] | None = None
 
 
 class ReasonIn(BaseModel):
@@ -462,6 +470,7 @@ __all__ = [
     "RunDetailOut",
     # Health y edición
     "HealthOut",
+    "GenerateIn",
     "ReasonIn",
     "CandidateContent",
     "CandidateEdit",

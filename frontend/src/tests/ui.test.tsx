@@ -29,6 +29,12 @@ describe('components/ui — primitivas (H1.3)', () => {
       expect(container.textContent).toContain('DEMO_PROVIDER')
       expect(container.textContent).toMatch(/demo|local/i)
     })
+
+    it('variante OPENAI_PROVIDER identifica IA real y el mismo harness', () => {
+      const { container } = render(<Banner variant="openai" />)
+      expect(container.textContent).toContain('OPENAI_PROVIDER')
+      expect(container.textContent).toMatch(/harness|validada/i)
+    })
   })
 
   describe('VoiceBadge', () => {

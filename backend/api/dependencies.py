@@ -15,7 +15,7 @@ from __future__ import annotations
 from collections.abc import Iterator
 from typing import Any
 
-from fastapi import Depends
+from fastapi import Depends, Query
 from sqlmodel import Session
 
 from ai.demo_provider import DemoProvider
@@ -47,7 +47,7 @@ def get_session() -> Iterator[Session]:
         yield session
 
 
-def get_provider(settings: Settings = Depends(get_settings)) -> GenAIProvider:
+def provider_for(settings: Settings, requested_provider: str | None = None) -> GenAIProvider:
     """Selecciona el proveedor GenAI según ``GENAI_PROVIDER`` (HARN-09).
 
     - ``demo`` (default): ``DemoProvider`` determinístico, sin red ni keys.
@@ -55,23 +55,36 @@ def get_provider(settings: Settings = Depends(get_settings)) -> GenAIProvider:
       se importa de forma diferida. Sin key o sin adaptador → error tipado
       ``ProviderError(UNAVAILABLE)``: nunca conmutación automática a demo.
     """
-    if settings.genai_provider == "openai":
+    selected = requested_provider or settings.genai_provider
+    if selected not in {"demo", "openai", "DEMO_PROVIDER", "OPENAI_PROVIDER"}:
+        raise ProviderError(UNAVAILABLE, "proveedor inválido: elegí DemoProvider u OpenAI")
+    if selected in {"openai", "OPENAI_PROVIDER"}:
         if not settings.openai_api_key:
             raise ProviderError(
                 UNAVAILABLE,
-                "GENAI_PROVIDER=openai requiere OPENAI_API_KEY: "
-                "activá la key o usá demo explícitamente (HARN-09)",
+                "OpenAI requiere OPENAI_API_KEY en el backend. Configurá .env y reiniciá, "
+                "o elegí DemoProvider explícitamente.",
             )
         try:
             from ai.openai_compat import OpenAICompatProvider  # P1, opcional
         except ImportError as exc:  # adaptador no implementado (hasta K.1)
             raise ProviderError(
                 UNAVAILABLE,
-                "el adaptador OpenAI-compatible no está disponible en esta "
-                "build: usá GENAI_PROVIDER=demo (HARN-09, sin conmutación automática)",
+                "el adaptador OpenAI-compatible no está disponible en esta build; "
+                "usá DemoProvider explícitamente",
             ) from exc
         return OpenAICompatProvider(settings=settings)
     return DemoProvider(force_invalid=settings.demo_force_invalid)
+
+
+def get_provider(
+    settings: Settings = Depends(get_settings),
+    requested_provider: str | None = Query(default=None, alias="provider"),
+) -> GenAIProvider:
+    """Selecciona el provider activo sin aceptar secretos del cliente."""
+    if not isinstance(requested_provider, str):
+        requested_provider = None
+    return provider_for(settings, requested_provider)
 
 
 def get_harness() -> Any:

@@ -19,4 +19,9 @@ router = APIRouter(prefix="/api", tags=["meta"], responses=ERROR_RESPONSES)
 @router.get("/health", response_model=schemas.HealthOut)
 def health(settings: Settings = Depends(get_settings)) -> schemas.HealthOut:
     """Estado del servicio y proveedor GenAI activo (API-01)."""
-    return schemas.HealthOut(status="ok", provider=settings.genai_provider)
+    return schemas.HealthOut(
+        status="ok",
+        provider=settings.genai_provider,
+        configured_provider=settings.genai_provider,
+        openai_configured=bool(settings.openai_api_key),
+    )

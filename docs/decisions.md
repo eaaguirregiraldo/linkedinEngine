@@ -13,6 +13,7 @@ Este documento resume las decisiones de `openspec/.../design.md`. No agrega alca
 7. **ADR-007, publicación honesta:** `SIMULATED_PUBLISHED` es terminal P0; `PUBLISHED_REAL` tiene guard muerto y no puede alcanzarse.
 8. **ADR-008, create_all + seed:** la DB demo es descartable; Alembic se incorpora solo cuando haya datos que preservar.
 9. **ADR-009, requests síncronos:** la UI muestra in-flight y bloquea doble envío; colas y polling quedan fuera del MVP.
+10. **Enhancement provider explícito:** la UI selecciona `demo` u `openai` por request; la key solo vive en `.env` del backend. OpenAI usa HTTP compatible con Chat Completions para evitar una dependencia SDK y devuelve JSON crudo al mismo harness.
 
 ## Supuestos explícitos
 
@@ -25,6 +26,7 @@ Este documento resume las decisiones de `openspec/.../design.md`. No agrega alca
 - La aprobación del contenido y del visual siempre requiere una razón humana.
 - SQLite se puede borrar para regenerar seed; no se promete preservación de datos en P0.
 - La publicación simulada nunca crea URL, URN, remote ID ni afirma haber enviado contenido.
+- `OPENAI_PROVIDER` no implica publicación real: solo identifica el proveedor de generación. Toda publicación continúa siendo `SIMULATED_PUBLISHED`.
 
 ## Publicación real vs simulada
 

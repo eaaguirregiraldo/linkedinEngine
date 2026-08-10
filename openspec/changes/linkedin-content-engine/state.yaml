@@ -22,6 +22,7 @@ artifacts:
 tasks_progress:
   completed: ["A1.3", "A1.4", "A1.5", "A1.6", "A1.7", "A1.8", "B.1", "B.2", "B.3", "B.4", "B.5", "B.6", "B.7", "C.1", "C.2", "C.3", "D.1", "D.2", "D.3", "D.4", "D.5", "E.1", "E.2", "E.3", "E.4", "E.5", "E.6", "F.1", "F.2", "F.3", "F.4", "F.5", "G.1", "G.2", "G.3", "G.4", "G.5", "G.6", "G.7", "H1.1", "H1.2", "H1.3", "H1.4", "H1.5", "H2.1", "H2.2", "H2.3", "H2.4", "H2.5", "H2.6", "H2.7", "H2.8", "H2.9", "H2.10", "H2.11", "H2.12", "I.1", "I.2", "I.3", "I.4", "J.1", "J.2", "J.3", "J.4", "J.5"]
   pending: ["A1.1", "A1.2", "J.6", "K.1", "K.2", "K.3", "K.4", "K.5"]
+  enhancement_completed: ["ENH.1", "ENH.2", "ENH.3"]
 # Wave 3 (Batch G) COMPLETA: G.1-G.7 [x] en tasks.md; suite backend completa 279 passed
 # (225 Wave 1+2 + 54 api: errors+deps 19, workflow 16, endpoints 10, main 9); ruff limpio;
 # sin build, sin commit. G.6 generó schema.d.ts + openapi.json (schema:check OK); la parte

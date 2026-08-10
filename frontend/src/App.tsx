@@ -9,7 +9,7 @@ export function App() {
   const health = useAsync<HealthOut>()
   const loadHealth = () => { void health.run(api.health) }
   useEffect(loadHealth, [])
-  const provider = health.data?.provider === 'demo' ? 'DEMO_PROVIDER' : health.data?.provider
+  const provider = health.data?.provider === 'openai' ? 'OPENAI_PROVIDER' : health.data?.provider === 'demo' ? 'DEMO_PROVIDER' : health.data?.provider
 
   return (
     <div className="app-shell">
